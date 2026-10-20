@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CivicPriority AI — Smart Civic Triage, Consensus Voting & Evidence Registry</title>
+<title>CivicPriority AI — Smart Triage, Community Voting & Authorized Resolution Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
@@ -36,6 +36,11 @@
   --c-safety: #f43f5e;
   --c-safety-bg: #fff1f2;
   --c-safety-border: #fecdd3;
+
+  /* Solved Green Theme */
+  --c-solved: #059669;
+  --c-solved-bg: #ecfdf5;
+  --c-solved-border: #6ee7b7;
 
   /* Priority Jewel Shades */
   --p-high: #ef4444;
@@ -87,10 +92,10 @@ button, input, textarea { font: inherit; color: inherit; }
 /* NAVBAR */
 header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
 }
 .nav-wrap {
   height: 84px; display: flex; align-items: center; justify-content: space-between;
@@ -105,14 +110,41 @@ header {
   display: flex; align-items: center; justify-content: center;
   color: #fff; box-shadow: 0 6px 14px -3px rgba(99, 102, 241, 0.45);
 }
-nav.nav-links { display: flex; gap: 32px; font-weight: 600; font-size: 15px; color: var(--ink-secondary); }
+nav.nav-links { display: flex; gap: 28px; font-weight: 600; font-size: 15px; color: var(--ink-secondary); align-items: center; }
 nav.nav-links a { transition: color 0.2s; }
 nav.nav-links a:hover { color: var(--brand-navy); }
+
+/* Solved Counter Badge in Nav */
+.nav-solved-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 99px;
+  background: var(--c-solved-bg); color: var(--c-solved);
+  border: 1px solid var(--c-solved-border); font-weight: 700; font-size: 13px;
+}
+
+/* Vercel Officer Access Indicator */
+.officer-auth-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 99px;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  border: 1px solid #cbd5e1; background: #f8fafc; color: var(--ink-secondary);
+  transition: all 0.2s;
+}
+.officer-auth-pill.authorized {
+  background: #0f172a; color: #38bdf8; border-color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+}
+.officer-auth-pill .dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #94a3b8;
+}
+.officer-auth-pill.authorized .dot {
+  background: #38bdf8; box-shadow: 0 0 8px #38bdf8;
+}
 
 .nav-cta {
   background: var(--brand-gradient);
   color: #fff; font-weight: 700; font-size: 14px;
-  padding: 11px 24px; border-radius: 99px; border: none; cursor: pointer;
+  padding: 10px 22px; border-radius: 99px; border: none; cursor: pointer;
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex; align-items: center; gap: 8px;
@@ -120,7 +152,7 @@ nav.nav-links a:hover { color: var(--brand-navy); }
 .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(99, 102, 241, 0.45); }
 
 /* HERO */
-.hero { padding: 88px 0 64px; position: relative; }
+.hero { padding: 80px 0 60px; position: relative; }
 .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
 .hero-content { display: flex; flex-direction: column; gap: 20px; }
 .pill-badge {
@@ -138,21 +170,21 @@ nav.nav-links a:hover { color: var(--brand-navy); }
 }
 
 h1.hero-title {
-  font-size: 54px; line-height: 1.12; font-weight: 800;
+  font-size: 52px; line-height: 1.12; font-weight: 800;
   color: var(--brand-navy); letter-spacing: -1.6px;
 }
-.hero-sub { font-size: 19px; line-height: 30px; color: #475569; max-width: 580px; }
+.hero-sub { font-size: 18px; line-height: 28px; color: #475569; max-width: 580px; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
 .btn-primary {
   background: var(--brand-navy); color: #fff; font-weight: 700;
-  padding: 15px 30px; border-radius: 12px; cursor: pointer; border: none;
+  padding: 14px 28px; border-radius: 12px; cursor: pointer; border: none;
   box-shadow: 0 10px 20px -5px rgba(11, 21, 40, 0.35); transition: all 0.2s;
   display: inline-flex; align-items: center; gap: 8px;
 }
 .btn-primary:hover { transform: translateY(-2px); background: #16243d; }
 .btn-secondary {
   background: #fff; color: var(--brand-navy); font-weight: 700;
-  padding: 15px 28px; border-radius: 12px; cursor: pointer;
+  padding: 14px 26px; border-radius: 12px; cursor: pointer;
   border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); transition: all 0.2s;
   display: inline-flex; align-items: center; gap: 8px;
 }
@@ -160,7 +192,7 @@ h1.hero-title {
 
 /* HERO GLASS CARD */
 .hero-glass {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: var(--radius-xl);
@@ -181,25 +213,45 @@ h1.hero-title {
   padding: 14px 16px; margin: 16px 0; display: flex; justify-content: space-between; align-items: center;
 }
 
-/* DOMAIN REGISTRY SECTION */
-.registry-section { padding: 88px 0; }
-.section-head { text-align: center; max-width: 780px; margin: 0 auto 44px; }
+/* REGISTRY VIEW SECTIONS */
+.registry-section { padding: 80px 0; }
+.section-head { text-align: center; max-width: 820px; margin: 0 auto 40px; }
 .section-tag {
   color: #6366f1; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
 }
 .section-title {
-  font-size: 40px; font-weight: 800; color: var(--brand-navy); letter-spacing: -1.2px; margin: 8px 0 12px;
+  font-size: 38px; font-weight: 800; color: var(--brand-navy); letter-spacing: -1.2px; margin: 8px 0 12px;
 }
-.section-desc { font-size: 17px; color: var(--ink-secondary); }
+.section-desc { font-size: 16px; color: var(--ink-secondary); }
 
-/* 5 VIBRANT DOMAIN SELECTOR BUTTONS */
+/* MAIN CATEGORY TABS: DOMAINS + SEPARATE SOLVED TAB */
+.main-view-tabs {
+  display: flex; justify-content: center; gap: 12px; margin-bottom: 30px;
+}
+.view-mode-btn {
+  background: #ffffff; border: 2px solid #e2e8f0;
+  padding: 10px 24px; border-radius: 99px; font-weight: 700; font-size: 15px;
+  color: var(--ink-secondary); cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: var(--shadow-sm); transition: all 0.2s;
+}
+.view-mode-btn:hover { border-color: #cbd5e1; color: var(--brand-navy); }
+.view-mode-btn.active {
+  background: var(--brand-navy); color: #ffffff; border-color: var(--brand-navy);
+  box-shadow: 0 8px 20px -4px rgba(11, 21, 40, 0.3);
+}
+.view-mode-btn.active.solved-mode {
+  background: var(--c-solved); border-color: var(--c-solved);
+  box-shadow: 0 8px 20px -4px rgba(5, 150, 105, 0.35);
+}
+
+/* 5 VIBRANT DOMAIN SWITCHER BUTTONS */
 .domain-tabs-row {
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 28px;
 }
 .dom-btn {
   background: #ffffff; border: 2px solid transparent;
-  border-radius: var(--radius-lg); padding: 18px 14px;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  border-radius: var(--radius-lg); padding: 16px 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
   cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
 }
@@ -207,17 +259,14 @@ h1.hero-title {
 .dom-btn.active { transform: translateY(-4px); box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.12); }
 
 .dom-icon-bubble {
-  width: 48px; height: 48px; border-radius: 14px;
+  width: 44px; height: 44px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  transition: transform 0.2s;
 }
-.dom-btn:hover .dom-icon-bubble { transform: scale(1.08); }
-.dom-btn .dom-title { font-weight: 700; font-size: 14px; text-align: center; color: var(--brand-navy); }
+.dom-btn .dom-title { font-weight: 700; font-size: 13px; text-align: center; color: var(--brand-navy); }
 .dom-counter {
   font-size: 11px; font-weight: 800; padding: 2px 9px; border-radius: 99px;
 }
 
-/* Domain specific color themes */
 .dom-btn[data-domain="roads"] .dom-icon-bubble { background: var(--c-roads-bg); color: var(--c-roads); }
 .dom-btn[data-domain="roads"].active { border-color: var(--c-roads); background: linear-gradient(to bottom, #ffffff, #fff7ed); }
 .dom-btn[data-domain="roads"] .dom-counter { background: var(--c-roads-bg); color: var(--c-roads); border: 1px solid var(--c-roads-border); }
@@ -242,21 +291,21 @@ h1.hero-title {
 .board-wrapper {
   background: #ffffff; border-radius: var(--radius-xl);
   border: 1px solid var(--border-light); box-shadow: var(--shadow-md);
-  padding: 32px;
+  padding: 30px;
 }
 .board-header-bar {
   display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
-  padding-bottom: 22px; border-bottom: 1px solid var(--border-light); margin-bottom: 24px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--border-light); margin-bottom: 22px;
 }
-.active-domain-info { display: flex; align-items: center; gap: 16px; }
+.active-domain-info { display: flex; align-items: center; gap: 14px; }
 .active-domain-icon {
-  width: 48px; height: 48px; border-radius: 12px;
+  width: 46px; height: 46px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
 }
-.active-domain-meta h3 { font-size: 21px; font-weight: 800; color: var(--brand-navy); }
+.active-domain-meta h3 { font-size: 20px; font-weight: 800; color: var(--brand-navy); }
 .active-domain-meta p { font-size: 13px; color: var(--ink-secondary); }
 
-/* Interactive Sort Toolbar */
+/* Sort Toolbar */
 .sort-toolbar {
   display: flex; align-items: center; gap: 8px; background: #f1f5f9; padding: 4px; border-radius: 12px;
 }
@@ -279,25 +328,26 @@ h1.hero-title {
 .problem-card {
   border: 1px solid #e2e8f0; border-radius: var(--radius-lg);
   padding: 20px; background: #ffffff;
-  display: grid; grid-template-columns: 84px 160px 1fr 165px; gap: 20px;
+  display: grid; grid-template-columns: 80px 150px 1fr 185px; gap: 20px;
   align-items: center; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 .problem-card:hover {
   transform: translateY(-2px); border-color: #cbd5e1;
   box-shadow: 0 10px 22px -5px rgba(15, 23, 42, 0.08);
 }
 
-/* VOTE SECTION IN EACH REPORT */
+/* VOTE SECTION */
 .vote-box {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
-  padding: 10px 6px; min-width: 76px; height: 100px;
+  padding: 10px 6px; min-width: 74px; height: 104px;
   transition: all 0.2s; user-select: none;
 }
 .vote-box:hover { border-color: #cbd5e1; background: #f1f5f9; }
 .vote-btn {
   background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px;
-  width: 38px; height: 32px; display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 32px; display: flex; align-items: center; justify-content: center;
   cursor: pointer; color: #64748b; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
@@ -306,16 +356,15 @@ h1.hero-title {
   background: #6366f1; color: #ffffff; border-color: #6366f1;
   box-shadow: 0 4px 10px rgba(99, 102, 241, 0.35); transform: translateY(-1px);
 }
-.vote-btn.voted svg { transform: translateY(-1px); }
 .vote-count-number {
-  font-size: 17px; font-weight: 800; color: var(--brand-navy); margin-top: 6px;
+  font-size: 16px; font-weight: 800; color: var(--brand-navy); margin-top: 5px;
   font-family: 'Space Grotesk', sans-serif;
 }
-.vote-subtext { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.4px; }
+.vote-subtext { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #94a3b8; }
 
 /* PHOTO EVIDENCE THUMBNAIL */
 .photo-thumb-container {
-  width: 100%; height: 115px; border-radius: var(--radius-md);
+  width: 100%; height: 110px; border-radius: var(--radius-md);
   overflow: hidden; position: relative; cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08); background: #0f172a;
 }
@@ -331,44 +380,83 @@ h1.hero-title {
   padding: 3px 7px; border-radius: 6px; display: flex; align-items: center; gap: 4px;
 }
 
-/* REPORT DETAILS */
+/* REPORT DETAILS WITH LOCATION SYMBOL & BADGE */
 .card-center-col { display: flex; flex-direction: column; gap: 6px; }
 .card-problem-title {
   font-size: 17px; font-weight: 800; color: var(--brand-navy);
 }
+
+/* REQUIRED: Distinctive Symbol / Indication near Place Name */
+.location-indicator-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;
+  font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 6px;
+  width: fit-content;
+}
+.geo-symbol-ring {
+  width: 8px; height: 8px; border-radius: 50%; background: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  display: inline-block;
+}
+
 .card-loc-meta {
   font-size: 13px; color: var(--ink-secondary);
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 2px;
 }
-.card-loc-meta span { display: inline-flex; align-items: center; gap: 4px; }
-.card-desc-body {
-  font-size: 14px; line-height: 22px; color: #475569;
-}
+.card-desc-body { font-size: 14px; line-height: 22px; color: #475569; }
 .dept-pill {
   font-size: 11px; font-weight: 700; background: #f8fafc; border: 1px solid #e2e8f0;
   color: #334155; padding: 4px 10px; border-radius: 6px; width: fit-content;
   display: inline-flex; align-items: center; gap: 6px;
 }
 
-/* PRIORITY & ACTIONS */
+/* PRIORITY & AUTHORIZED OFFICER ACTIONS */
 .card-aside-col {
-  display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
 }
 .jewel-priority {
-  padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 800;
-  display: inline-flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 5px 12px; border-radius: 99px; font-size: 11px; font-weight: 800;
+  display: inline-flex; align-items: center; gap: 5px; text-transform: uppercase; letter-spacing: 0.5px;
 }
 .jewel-high { background: var(--p-high-bg); color: var(--p-high); border: 1px solid #fca5a5; }
 .jewel-med { background: var(--p-med-bg); color: #b45309; border: 1px solid #fde68a; }
 .jewel-low { background: var(--p-low-bg); color: #047857; border: 1px solid #6ee7b7; }
+.jewel-solved { background: var(--c-solved-bg); color: var(--c-solved); border: 1px solid var(--c-solved-border); }
 
 .btn-inspect-ev {
   background: #f8fafc; border: 1px solid #cbd5e1;
-  color: var(--brand-navy); font-size: 13px; font-weight: 700;
-  padding: 8px 14px; border-radius: 8px; cursor: pointer;
-  display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s;
+  color: var(--brand-navy); font-size: 12px; font-weight: 700;
+  padding: 6px 12px; border-radius: 8px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s;
 }
 .btn-inspect-ev:hover { background: #e2e8f0; }
+
+/* REQUIRED: Authorized User "Mark Solved" Button */
+.btn-mark-solved {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff; border: none; font-size: 12px; font-weight: 800;
+  padding: 8px 14px; border-radius: 8px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3); transition: all 0.2s;
+}
+.btn-mark-solved:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(5, 150, 105, 0.4); }
+
+.restricted-lock-note {
+  font-size: 11px; color: #94a3b8; font-weight: 600; text-align: right;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+
+/* SEPARATE HEADING FOR SOLVED PROBLEMS */
+.solved-hero-banner {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+  border-radius: var(--radius-lg); padding: 24px; color: #ecfdf5; margin-bottom: 24px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.solved-stamp {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 800;
+  display: inline-flex; align-items: center; gap: 6px;
+}
 
 /* INTAKE FORM */
 .form-section {
@@ -391,7 +479,7 @@ h1.hero-title {
 .feature-item b { color: #ffffff; display: block; font-size: 15px; margin-bottom: 2px; }
 .feature-item span { font-size: 14px; color: #94a3b8; }
 
-/* LUXURY FORM CARD */
+/* FORM CARD */
 .glass-form-card {
   background: #ffffff; border-radius: 24px; padding: 40px;
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
@@ -477,6 +565,22 @@ h1.hero-title {
   display: flex; flex-direction: column; gap: 8px; font-size: 14px;
 }
 
+/* VERCEL PUBLISHER AUTHENTICATION DIALOG (REQUIRED) */
+.auth-modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(9, 19, 30, 0.85);
+  backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+}
+.auth-modal-overlay.open { display: flex; }
+.auth-card {
+  background: #ffffff; border-radius: 20px; max-width: 480px; width: 100%;
+  padding: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); position: relative;
+}
+.auth-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.vercel-logo-icon {
+  width: 36px; height: 36px; background: #000; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; color: #fff;
+}
+
 /* EVIDENCE MODAL */
 .modal-backdrop {
   display: none; position: fixed; inset: 0; background: rgba(9, 19, 30, 0.82);
@@ -548,6 +652,8 @@ h1.hero-title {
     <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
     <symbol id="icon-mail" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
     <symbol id="icon-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="icon-vercel" viewBox="0 0 24 24"><polygon points="12 2 24 22 0 22"/></symbol>
   </defs>
 </svg>
 
@@ -560,15 +666,28 @@ h1.hero-title {
       </div>
       CivicPriority <span class="text-gradient">AI</span>
     </a>
+
     <nav class="nav-links">
-      <a href="#domains">Domain Boards</a>
+      <a href="#domains" onclick="window.switchMainView('active')">Domain Boards</a>
+      <a href="#domains" class="nav-solved-link" onclick="window.switchMainView('solved')">
+        <svg class="icon-svg" style="width:14px;height:14px"><use href="#icon-check"/></svg>
+        Solved Problems (<span id="navSolvedCount">0</span>)
+      </a>
       <a href="#report">Report Issue</a>
-      <a href="#faq">FAQ</a>
     </nav>
-    <a href="#report" class="nav-cta">
-      File Complaint
-      <svg class="icon-svg"><use href="#icon-arrow-right"/></svg>
-    </a>
+
+    <!-- Vercel Account Publisher / Officer Access Switcher -->
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="officer-auth-pill" id="officerAuthBtn" onclick="window.openAuthModal()">
+        <span class="dot"></span>
+        <span id="officerStatusText">Officer Login</span>
+      </button>
+
+      <a href="#report" class="nav-cta">
+        File Complaint
+        <svg class="icon-svg"><use href="#icon-arrow-right"/></svg>
+      </a>
+    </div>
   </div>
 </header>
 
@@ -580,21 +699,21 @@ h1.hero-title {
     <div class="hero-content">
       <div class="pill-badge">
         <div class="pulse-dot"></div>
-        Community Consensus &amp; Triage Engine
+        Civic Triage &amp; Certified Resolution Flow
       </div>
       <h1 class="hero-title font-display">
-        Civic Issues Classified by AI, <span class="text-gradient">Amplified by Community Votes.</span>
+        Civic Issues Classified by AI, <span class="text-gradient">Resolved with Certified Authority.</span>
       </h1>
       <p class="hero-sub">
-        Report any civic breakdown with photographic proof. The AI assigns the proper domain and priority level, while citizens vote to boost urgent neighbourhood problems directly to the top.
+        Attach photographic proof and localized geo-indicators. Active complaints are ranked by AI severity and citizen votes. Only municipal staff authorized by the <strong>Vercel Site Publisher</strong> hold verified permission to resolve and archive tickets.
       </p>
       <div class="hero-actions">
         <a href="#report" class="btn-primary">
           <svg class="icon-svg"><use href="#icon-camera"/></svg>
           Report with Evidence
         </a>
-        <a href="#domains" class="btn-secondary">
-          Explore Domain Boards
+        <a href="#domains" class="btn-secondary" onclick="window.switchMainView('solved')">
+          Browse Solved Archive &rarr;
         </a>
       </div>
     </div>
@@ -602,7 +721,7 @@ h1.hero-title {
     <!-- HERO SNAPSHOT CARD -->
     <div class="hero-glass">
       <div class="preview-header">
-        <div class="live-chip"><span></span> Live Consensus Engine</div>
+        <div class="live-chip"><span></span> Authorized Queue</div>
         <span style="font-size:12px;font-weight:700;color:#64748b">Verified Evidence Registry</span>
       </div>
       
@@ -616,110 +735,137 @@ h1.hero-title {
             <span class="jewel-priority jewel-high" style="font-size:10px;padding:2px 8px">High Priority</span>
           </div>
           <div style="font-weight:800;font-size:15px;color:var(--brand-navy);margin-top:2px">Arterial Road Cavitation</div>
-          <div style="font-size:12px;color:#64748b">Near St. Jude Elementary Corridor • <b>214 Citizen Upvotes</b></div>
+          <div style="font-size:12px;color:#64748b">
+            <span class="location-indicator-badge" style="padding:1px 6px;font-size:11px"><span class="geo-symbol-ring"></span> Zone 4 • Sector Elm</span>
+          </div>
         </div>
       </div>
 
       <div class="ai-meta-banner">
         <div>
-          <div style="font-size:11px;font-weight:800;color:#6366f1;text-transform:uppercase">Consensus Dynamics</div>
-          <div style="font-size:16px;font-weight:800;color:var(--brand-navy)">Rank #1 in Live Queue</div>
+          <div style="font-size:11px;font-weight:800;color:#6366f1;text-transform:uppercase">Role Authority</div>
+          <div style="font-size:14px;font-weight:800;color:var(--brand-navy)" id="heroRoleSnapshot">Citizen Mode (Read Only)</div>
         </div>
         <div style="text-align:right">
-          <div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase">Dispatch Weight</div>
-          <div style="font-size:16px;font-weight:800;color:var(--p-high)">98.8% Urgency Index</div>
+          <div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase">Resolution Access</div>
+          <div style="font-size:14px;font-weight:800;color:var(--c-solved)">Vercel-Delegated Inspector</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DOMAIN REGISTRY SECTION WITH VOTE RANKING -->
+<!-- DOMAIN REGISTRY & SOLVED PROBLEMS -->
 <section class="registry-section" id="domains">
   <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag font-display">Triage Architecture</span>
-      <h2 class="section-title font-display">Domain Registry with Citizen Voting</h2>
-      <p class="section-desc">
-        Click any domain below to browse reported problems. Use the toolbar to order issues either by <strong>Priority Level (High &rarr; Med &rarr; Low)</strong> or by <strong>Community Upvotes</strong> to elevate pressing neighborhood concerns.
-      </p>
-    </div>
-
-    <!-- 5 Vibrant Domain Switcher Buttons -->
-    <div class="domain-tabs-row" id="domainTabs" role="tablist">
-      <button class="dom-btn active" data-domain="roads" role="tab" aria-selected="true">
-        <div class="dom-icon-bubble">
-          <svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-road"/></svg>
-        </div>
-        <span class="dom-title">Roads &amp; Infra</span>
-        <span class="dom-counter" id="badge-roads">0 Reports</span>
+    
+    <!-- MAIN TOP VIEW SWITCHER: ACTIVE ISSUES VS SOLVED PROBLEMS -->
+    <div class="main-view-tabs">
+      <button class="view-mode-btn active font-display" id="tabActiveView" onclick="window.switchMainView('active')">
+        <svg class="icon-svg"><use href="#icon-alert"/></svg>
+        Active Domain Queue
       </button>
-
-      <button class="dom-btn" data-domain="water" role="tab" aria-selected="false">
-        <div class="dom-icon-bubble">
-          <svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-water"/></svg>
-        </div>
-        <span class="dom-title">Water &amp; Drainage</span>
-        <span class="dom-counter" id="badge-water">0 Reports</span>
-      </button>
-
-      <button class="dom-btn" data-domain="electric" role="tab" aria-selected="false">
-        <div class="dom-icon-bubble">
-          <svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-bolt"/></svg>
-        </div>
-        <span class="dom-title">Power &amp; Grid</span>
-        <span class="dom-counter" id="badge-electric">0 Reports</span>
-      </button>
-
-      <button class="dom-btn" data-domain="sanitation" role="tab" aria-selected="false">
-        <div class="dom-icon-bubble">
-          <svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-trash"/></svg>
-        </div>
-        <span class="dom-title">Waste &amp; Sanitation</span>
-        <span class="dom-counter" id="badge-sanitation">0 Reports</span>
-      </button>
-
-      <button class="dom-btn" data-domain="safety" role="tab" aria-selected="false">
-        <div class="dom-icon-bubble">
-          <svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-safety"/></svg>
-        </div>
-        <span class="dom-title">Public Safety</span>
-        <span class="dom-counter" id="badge-safety">0 Reports</span>
+      <button class="view-mode-btn font-display" id="tabSolvedView" onclick="window.switchMainView('solved')">
+        <svg class="icon-svg"><use href="#icon-check"/></svg>
+        Solved Problems Archive (<span id="mainSolvedCount">0</span>)
       </button>
     </div>
 
-    <!-- Active Domain Board -->
-    <div class="board-wrapper">
-      <div class="board-header-bar">
-        <div class="active-domain-info">
-          <div class="active-domain-icon" id="domainIconFrame">
-            <svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-road"/></svg>
+    <!-- ACTIVE ISSUES VIEW WRAPPER -->
+    <div id="activeViewContainer">
+      <div class="section-head">
+        <span class="section-tag font-display">Active Municipal Triage</span>
+        <h2 class="section-title font-display">Active Domains Ordered by Priority &amp; Votes</h2>
+        <p class="section-desc">
+          Click any domain below to browse pending issues. Notice the <strong>localized place symbol</strong> on each card. Authorized personnel chosen by the Vercel deployer can click <strong>"Mark as Solved"</strong> to advance issues to the Solved archive.
+        </p>
+      </div>
+
+      <!-- 5 Vibrant Domain Switcher Buttons -->
+      <div class="domain-tabs-row" id="domainTabs" role="tablist">
+        <button class="dom-btn active" data-domain="roads" role="tab" aria-selected="true">
+          <div class="dom-icon-bubble"><svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-road"/></svg></div>
+          <span class="dom-title">Roads &amp; Infra</span>
+          <span class="dom-counter" id="badge-roads">0</span>
+        </button>
+        <button class="dom-btn" data-domain="water" role="tab" aria-selected="false">
+          <div class="dom-icon-bubble"><svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-water"/></svg></div>
+          <span class="dom-title">Water &amp; Drainage</span>
+          <span class="dom-counter" id="badge-water">0</span>
+        </button>
+        <button class="dom-btn" data-domain="electric" role="tab" aria-selected="false">
+          <div class="dom-icon-bubble"><svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-bolt"/></svg></div>
+          <span class="dom-title">Power &amp; Grid</span>
+          <span class="dom-counter" id="badge-electric">0</span>
+        </button>
+        <button class="dom-btn" data-domain="sanitation" role="tab" aria-selected="false">
+          <div class="dom-icon-bubble"><svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-trash"/></svg></div>
+          <span class="dom-title">Waste &amp; Sanitation</span>
+          <span class="dom-counter" id="badge-sanitation">0</span>
+        </button>
+        <button class="dom-btn" data-domain="safety" role="tab" aria-selected="false">
+          <div class="dom-icon-bubble"><svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-safety"/></svg></div>
+          <span class="dom-title">Public Safety</span>
+          <span class="dom-counter" id="badge-safety">0</span>
+        </button>
+      </div>
+
+      <!-- Board Header for Active Queue -->
+      <div class="board-wrapper">
+        <div class="board-header-bar">
+          <div class="active-domain-info">
+            <div class="active-domain-icon" id="domainIconFrame">
+              <svg class="icon-svg" style="width:24px;height:24px"><use href="#icon-road"/></svg>
+            </div>
+            <div class="active-domain-meta">
+              <h3 id="currentDomainTitle">Roads &amp; Infrastructure</h3>
+              <p id="currentDomainSubtitle">Potholes, asphalt failures, and pedestrian walkway concerns.</p>
+            </div>
           </div>
-          <div class="active-domain-meta">
-            <h3 id="currentDomainTitle">Roads &amp; Infrastructure</h3>
-            <p id="currentDomainSubtitle">Potholes, asphalt failures, and pedestrian walkway concerns.</p>
+
+          <!-- Sort Option Switcher: Priority vs Votes -->
+          <div class="sort-toolbar">
+            <span class="sort-label font-display">Order By:</span>
+            <button class="sort-btn active" id="sortPriorityBtn" onclick="window.setSortMode('priority')">
+              <svg class="icon-svg"><use href="#icon-alert"/></svg>
+              Priority Level
+            </button>
+            <button class="sort-btn" id="sortVotesBtn" onclick="window.setSortMode('votes')">
+              <svg class="icon-svg"><use href="#icon-flame"/></svg>
+              Most Voted
+            </button>
           </div>
         </div>
 
-        <!-- Sort Option Switcher: Priority vs Votes -->
-        <div class="sort-toolbar">
-          <span class="sort-label font-display">Order By:</span>
-          <button class="sort-btn active" id="sortPriorityBtn" onclick="window.setSortMode('priority')">
-            <svg class="icon-svg"><use href="#icon-alert"/></svg>
-            Priority Level
-          </button>
-          <button class="sort-btn" id="sortVotesBtn" onclick="window.setSortMode('votes')">
-            <svg class="icon-svg"><use href="#icon-flame"/></svg>
-            Most Voted
-          </button>
+        <!-- Problem Cards Stream (Ordered) -->
+        <div class="complaints-grid" id="complaintsListContainer"></div>
+      </div>
+    </div>
+
+    <!-- REQUIRED SEPARATE SECTION: SOLVED PROBLEMS ARCHIVE -->
+    <div id="solvedViewContainer" style="display:none">
+      <div class="solved-hero-banner">
+        <div>
+          <div class="solved-stamp font-display">
+            <svg class="icon-svg" style="width:14px;height:14px"><use href="#icon-check"/></svg>
+            Official Municipal Archive
+          </div>
+          <h2 class="font-display" style="font-size:28px;color:#ffffff;margin-top:8px">Solved Problems Registry</h2>
+          <p style="font-size:14px;color:#a7f3d0;max-width:600px">
+            All complaints verified and marked as solved by the authorized municipal inspector. Complete with photographic verification logs and resolution notes.
+          </p>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:36px;font-weight:800;color:#ffffff" class="font-display" id="solvedBannerTotal">0</div>
+          <div style="font-size:12px;color:#a7f3d0;text-transform:uppercase;font-weight:700">Total Fixed Issues</div>
         </div>
       </div>
 
-      <!-- Problem Cards Stream (Ordered by Selected Mode) -->
-      <div class="complaints-grid" id="complaintsListContainer">
-        <!-- Rendered dynamically -->
+      <div class="board-wrapper">
+        <div class="complaints-grid" id="solvedListContainer"></div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -738,10 +884,10 @@ h1.hero-title {
 
         <div class="feature-list">
           <div class="feature-item">
-            <div class="feature-icon-box"><svg class="icon-svg"><use href="#icon-road"/></svg></div>
+            <div class="feature-icon-box"><svg class="icon-svg"><use href="#icon-pin"/></svg></div>
             <div>
-              <b>Automated Domain Assignment</b>
-              <span>No guesswork; intelligent parsing sends tickets straight to the responsible team.</span>
+              <b>Localized Geo-Zone Symbol Tagging</b>
+              <span>Issues display an animated zone indicator near the landmark to alert passersby.</span>
             </div>
           </div>
           <div class="feature-item">
@@ -752,10 +898,10 @@ h1.hero-title {
             </div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon-box"><svg class="icon-svg"><use href="#icon-flame"/></svg></div>
+            <div class="feature-icon-box"><svg class="icon-svg"><use href="#icon-lock"/></svg></div>
             <div>
-              <b>Democratized Citizen Upvoting</b>
-              <span>Community consensus ranks the most widespread disruptions first.</span>
+              <b>Vercel Publisher Access Control</b>
+              <span>Only designated municipal staff have permission to mark issues as solved.</span>
             </div>
           </div>
         </div>
@@ -822,7 +968,7 @@ h1.hero-title {
               <label for="f-location">Exact Location / Landmark <span class="req">*</span></label>
               <div class="input-box">
                 <svg class="icon-svg inp-icon"><use href="#icon-pin"/></svg>
-                <input id="f-location" type="text" placeholder="Corner of 7th &amp; Lexington" required>
+                <input id="f-location" type="text" placeholder="Corner of 7th &amp; Lexington, Downtown" required>
               </div>
             </div>
           </div>
@@ -841,11 +987,9 @@ h1.hero-title {
             <svg class="icon-svg" style="width:32px;height:32px"><use href="#icon-check"/></svg>
           </div>
           <h3 class="font-display" style="font-size:22px;color:var(--brand-navy)">Complaint Classified &amp; Published!</h3>
-          <p style="font-size:14px;color:#64748b">Your complaint has been mapped to its domain, ordered by assessed priority, and made available for public voting:</p>
+          <p style="font-size:14px;color:#64748b">Your complaint has been mapped to its domain, tagged with a localized geo-symbol, and queued for municipal resolution:</p>
           
-          <div class="result-breakdown" id="submissionSummary">
-            <!-- Rendered dynamically -->
-          </div>
+          <div class="result-breakdown" id="submissionSummary"></div>
 
           <div style="display:flex;gap:12px;width:100%;margin-top:6px">
             <button type="button" class="btn-primary" style="flex:1;justify-content:center" id="btnViewInBoard">
@@ -862,6 +1006,51 @@ h1.hero-title {
 </section>
 
 </main>
+
+<!-- REQUIRED: VERCEL DEPLOYER / AUTHORIZED USER AUTHENTICATION MODAL -->
+<div class="auth-modal-overlay" id="authModal" role="dialog" aria-modal="true">
+  <div class="auth-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="auth-header">
+        <div class="vercel-logo-icon">
+          <svg class="icon-svg" style="width:18px;height:18px;fill:#fff;stroke:none"><use href="#icon-vercel"/></svg>
+        </div>
+        <div>
+          <h3 class="font-display" style="font-size:18px;color:var(--brand-navy)">Authorized Inspector Access</h3>
+          <p style="font-size:12px;color:#64748b">Vercel Publisher Access Delegation</p>
+        </div>
+      </div>
+      <button class="modal-close-btn" onclick="window.closeAuthModal()">&times;</button>
+    </div>
+
+    <p style="font-size:13px;line-height:20px;color:#475569;margin-bottom:16px">
+      The Vercel account user who published this platform grants exclusive <strong>"Mark as Solved"</strong> rights to authorized inspectors. Enter your authorized officer passkey or claim deployer credentials below.
+    </p>
+
+    <div style="background:#f1f5f9;border-radius:10px;padding:12px;font-size:12px;margin-bottom:16px;color:#334155">
+      💡 <strong>Default Demo Officer Passkey:</strong> <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;font-weight:700">VERCEL-ADMIN-2026</code>
+    </div>
+
+    <form id="officerLoginForm" onsubmit="window.handleOfficerLogin(event)">
+      <div class="form-group">
+        <label for="officerPasskey">Municipal Officer Key / Vercel Deployer Token</label>
+        <div class="input-box">
+          <svg class="icon-svg inp-icon"><use href="#icon-lock"/></svg>
+          <input id="officerPasskey" type="password" placeholder="Enter key (VERCEL-ADMIN-2026)" required>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button type="submit" class="btn-primary" style="flex:1;justify-content:center">
+          Authenticate Officer
+        </button>
+        <button type="button" class="btn-secondary" id="btnOfficerLogout" onclick="window.handleOfficerLogout()" style="display:none">
+          Revoke Access
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- EVIDENCE VIEWER MODAL DIALOG -->
 <div class="modal-backdrop" id="evidenceModal" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
@@ -938,7 +1127,13 @@ h1.hero-title {
     }
   };
 
-  // Pre-seeded database with realistic colourful SVG photographic evidence & vote counts
+  // State Management
+  let isAuthorizedOfficer = false; // Granted by Vercel Deployer Key
+  let activeMainView = "active"; // "active" or "solved"
+  let selectedDomain = "roads";
+  let activeSortMode = "priority"; // 'priority' or 'votes'
+
+  // Pre-seeded Database (with solved and unsolved issues)
   let database = [
     {
       id: "CIVIC-8101",
@@ -946,6 +1141,7 @@ h1.hero-title {
       title: "Extensive Asphalt Cavity with Exposed Rebar",
       problem: "Multiple severe potholes across both inbound lanes. Already caused 3 blown tires this morning near school crossing.",
       location: "Grand Ave & 14th St",
+      zoneSymbol: "Zone 1A • North Metro",
       reporter: "Sarah Vance",
       priority: "High",
       score: 95,
@@ -953,6 +1149,9 @@ h1.hero-title {
       userVoted: false,
       time: "12m ago",
       dept: DOMAIN_SCHEMA.roads.dept,
+      status: "active", // active | solved
+      solvedAt: null,
+      solvedBy: null,
       photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%231e293b' width='400' height='260'/><circle cx='200' cy='130' r='65' fill='%230f172a'/><line x1='160' y1='100' x2='240' y2='160' stroke='%23ef4444' stroke-width='4'/><text x='200' y='135' fill='%23fed7aa' font-size='14' text-anchor='middle' font-family='sans-serif'>EVIDENCE: 35cm Crater</text></svg>"
     },
     {
@@ -961,6 +1160,7 @@ h1.hero-title {
       title: "Dislodged Pedestrian Curbing at Transit Depot",
       problem: "Granite curb dislodged onto bicycle pathway, creating trip hazard during evening commute.",
       location: "North Central Transit Terminal",
+      zoneSymbol: "Transit Hub • Sector 3",
       reporter: "Kevin Mitchell",
       priority: "Medium",
       score: 62,
@@ -968,22 +1168,10 @@ h1.hero-title {
       userVoted: false,
       time: "2h ago",
       dept: DOMAIN_SCHEMA.roads.dept,
+      status: "active",
+      solvedAt: null,
+      solvedBy: null,
       photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%23334155' width='400' height='260'/><rect x='100' y='140' width='200' height='40' fill='%230f172a'/><text x='200' y='165' fill='%23ffffff' font-size='13' text-anchor='middle' font-family='sans-serif'>EVIDENCE: Buckled Curb</text></svg>"
-    },
-    {
-      id: "CIVIC-8103",
-      domain: "roads",
-      title: "Faded High-Visibility Crosswalk Markings",
-      problem: "Crosswalk stripes almost completely worn off; vehicles fail to yield to pedestrians.",
-      location: "Valley St & 8th Ave",
-      reporter: "Maria Santos",
-      priority: "Low",
-      score: 35,
-      votes: 54,
-      userVoted: false,
-      time: "5h ago",
-      dept: DOMAIN_SCHEMA.roads.dept,
-      photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%2327272a' width='400' height='260'/><line x1='60' y1='130' x2='340' y2='130' stroke='%23a1a1aa' stroke-dasharray='20,15' stroke-width='14'/><text x='200' y='100' fill='%23f4f4f5' font-size='13' text-anchor='middle' font-family='sans-serif'>EVIDENCE: Faded Zebra Crossing</text></svg>"
     },
     {
       id: "CIVIC-8201",
@@ -991,6 +1179,7 @@ h1.hero-title {
       title: "Ruptured 12-inch Clean Water Distribution Main",
       problem: "High velocity geyser flooding subterranean electrical vaults and basements of commercial shops.",
       location: "Corner of Market & 4th",
+      zoneSymbol: "Zone B • Commercial Core",
       reporter: "Julian Zhao",
       priority: "High",
       score: 98,
@@ -998,22 +1187,10 @@ h1.hero-title {
       userVoted: false,
       time: "25m ago",
       dept: DOMAIN_SCHEMA.water.dept,
+      status: "active",
+      solvedAt: null,
+      solvedBy: null,
       photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%23082f49' width='400' height='260'/><ellipse cx='200' cy='150' rx='130' ry='60' fill='%230284c7'/><text x='200' y='155' fill='%23ffffff' font-size='14' text-anchor='middle' font-family='sans-serif'>EVIDENCE: Pressurized Rupture</text></svg>"
-    },
-    {
-      id: "CIVIC-8202",
-      domain: "water",
-      title: "Storm Drain Intake Silted with Leaf Compost",
-      problem: "Surface pooling during precipitation along pedestrian sidewalk.",
-      location: "Crestview Drive",
-      reporter: "Emma Watson",
-      priority: "Low",
-      score: 30,
-      votes: 89,
-      userVoted: false,
-      time: "6h ago",
-      dept: DOMAIN_SCHEMA.water.dept,
-      photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%23134e4a' width='400' height='260'/><rect x='140' y='90' width='120' height='80' fill='%23042f2e'/><text x='200' y='135' fill='%2399f6e4' font-size='13' text-anchor='middle' font-family='sans-serif'>EVIDENCE: Blocked Silt Grate</text></svg>"
     },
     {
       id: "CIVIC-8301",
@@ -1021,6 +1198,7 @@ h1.hero-title {
       title: "Snapped Overhead Power Cable Arcing to Guardrail",
       problem: "Live dangling electrical wire throwing sparks against steel highway barrier.",
       location: "Expressway Exit 9B",
+      zoneSymbol: "Highway Ward 7 • High Voltage",
       reporter: "Officer D. Harris",
       priority: "High",
       score: 99,
@@ -1028,44 +1206,53 @@ h1.hero-title {
       userVoted: false,
       time: "8m ago",
       dept: DOMAIN_SCHEMA.electric.dept,
+      status: "active",
+      solvedAt: null,
+      solvedBy: null,
       photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%231e1b4b' width='400' height='260'/><path d='M30 30 Q 200 240, 370 120' stroke='%23f59e0b' stroke-width='4' fill='none'/><circle cx='200' cy='180' r='14' fill='%23ef4444'/><text x='200' y='225' fill='%23ddd6fe' font-size='14' text-anchor='middle' font-family='sans-serif'>EVIDENCE: Live 4kV Line</text></svg>"
     },
+    // Preloaded SOLVED Problems
     {
-      id: "CIVIC-8401",
-      domain: "sanitation",
-      title: "Biohazard Medical Waste Dumped Behind Clinic",
-      problem: "Multiple unsealed bio-waste barrels left unattended near public alleyway.",
-      location: "Rear of 410 Medical Park",
-      reporter: "Rachel Green",
-      priority: "High",
-      score: 92,
-      votes: 184,
-      userVoted: false,
-      time: "40m ago",
-      dept: DOMAIN_SCHEMA.sanitation.dept,
-      photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%2314532d' width='400' height='260'/><rect x='130' y='80' width='140' height='100' fill='%23052e16'/><text x='200' y='135' fill='%23bbf7d0' font-size='13' text-anchor='middle' font-family='sans-serif'>EVIDENCE: Hazardous Dump</text></svg>"
-    },
-    {
-      id: "CIVIC-8501",
-      domain: "safety",
-      title: "Fractured Main Beam on Children's Playground",
-      problem: "Wooden structural swing set support beam split down center under load.",
-      location: "Pine Hill Community Park",
+      id: "CIVIC-7001",
+      domain: "roads",
+      title: "Collapsed Manhole Rim on 5th Avenue",
+      problem: "Crumbling concrete collar caused manhole cover to drop 4 inches, posing vehicle hazard.",
+      location: "5th Ave & Pine St",
+      zoneSymbol: "Downtown Sector 2",
       reporter: "Liam O'Connor",
       priority: "High",
-      score: 89,
-      votes: 276,
+      score: 91,
+      votes: 188,
       userVoted: false,
-      time: "1h ago",
-      dept: DOMAIN_SCHEMA.safety.dept,
-      photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%234c0519' width='400' height='260'/><line x1='120' y1='40' x2='120' y2='220' stroke='%23881337' stroke-width='22'/><line x1='110' y1='100' x2='130' y2='150' stroke='%23fb7185' stroke-width='4'/><text x='240' y='130' fill='%23ffe4e6' font-size='13' text-anchor='middle' font-family='sans-serif'>EVIDENCE: Beam Failure</text></svg>"
+      time: "Yesterday",
+      dept: DOMAIN_SCHEMA.roads.dept,
+      status: "solved",
+      solvedAt: "Completed Today at 09:30 AM",
+      solvedBy: "Inspector M. Rivera (Badge #4092)",
+      photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%23064e3b' width='400' height='260'/><circle cx='200' cy='130' r='50' fill='%23022c22'/><text x='200' y='135' fill='%236ee7b7' font-size='14' text-anchor='middle' font-family='sans-serif'>SOLVED: Recast Concrete Collar</text></svg>"
+    },
+    {
+      id: "CIVIC-7002",
+      domain: "electric",
+      title: "Damaged Pedestrian Lamp Post Leaning Over Sidewalk",
+      problem: "Pole struck by delivery van, leaning dangerously toward sidewalk bench.",
+      location: "Maple Park Promenade",
+      zoneSymbol: "Park District East",
+      reporter: "Amira Patel",
+      priority: "Medium",
+      score: 64,
+      votes: 95,
+      userVoted: false,
+      time: "2 days ago",
+      dept: DOMAIN_SCHEMA.electric.dept,
+      status: "solved",
+      solvedAt: "Completed Yesterday at 4:15 PM",
+      solvedBy: "Inspector J. Sterling (Badge #8122)",
+      photo: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect fill='%23064e3b' width='400' height='260'/><rect x='190' y='40' width='20' height='180' fill='%2334d399'/><text x='200' y='135' fill='%23ffffff' font-size='13' text-anchor='middle' font-family='sans-serif'>SOLVED: Replaced Pole Assembly</text></svg>"
     }
   ];
 
-  let selectedDomain = "roads";
-  let activeSortMode = "priority"; // 'priority' or 'votes'
-
-  // Classifier & Priority Engine
+  // Natural Language Classifier
   function classifyComplaint(text, loc) {
     const raw = (text + " " + loc).toLowerCase();
 
@@ -1103,33 +1290,54 @@ h1.hero-title {
       score = 50 + Math.floor(Math.random() * 25);
     }
 
-    return { domain: targetDomain, priority, score };
+    // 3. Generate localized geo-indicator tag based on location
+    const zoneSymbol = "Zone " + (Math.floor(1 + Math.random() * 9)) + " • " + (loc.split(',')[0].trim());
+
+    return { domain: targetDomain, priority, score, zoneSymbol };
   }
 
-  // Sorter Functions
+  // Sorter
   function getSortedReports(reports) {
     const priorityWeight = { High: 3, Medium: 2, Low: 1 };
-
     return [...reports].sort((a, b) => {
       if (activeSortMode === "priority") {
-        // Primary: Priority level (High > Med > Low)
         if (priorityWeight[b.priority] !== priorityWeight[a.priority]) {
           return priorityWeight[b.priority] - priorityWeight[a.priority];
         }
-        // Secondary: Votes
         return b.votes - a.votes;
       } else {
-        // Primary: Votes descending
         if (b.votes !== a.votes) {
           return b.votes - a.votes;
         }
-        // Secondary: Priority level
         return priorityWeight[b.priority] - priorityWeight[a.priority];
       }
     });
   }
 
-  // Switch sort mode and refresh
+  // Switch between Active Queue and Solved Problems Archive
+  window.switchMainView = function(view) {
+    activeMainView = view;
+    const tabActive = document.getElementById("tabActiveView");
+    const tabSolved = document.getElementById("tabSolvedView");
+    const activeCont = document.getElementById("activeViewContainer");
+    const solvedCont = document.getElementById("solvedViewContainer");
+
+    if (view === "active") {
+      tabActive.classList.add("active");
+      tabSolved.classList.remove("active", "solved-mode");
+      activeCont.style.display = "block";
+      solvedCont.style.display = "none";
+      renderDomainBoard(selectedDomain);
+    } else {
+      tabActive.classList.remove("active");
+      tabSolved.classList.add("active", "solved-mode");
+      activeCont.style.display = "none";
+      solvedCont.style.display = "block";
+      renderSolvedProblems();
+    }
+  };
+
+  // Switch sort mode
   window.setSortMode = function(mode) {
     activeSortMode = mode;
     document.getElementById("sortPriorityBtn").classList.toggle("active", mode === "priority");
@@ -1137,7 +1345,7 @@ h1.hero-title {
     renderDomainBoard(selectedDomain);
   };
 
-  // Upvote/Toggle Vote Handler
+  // Upvoting
   window.toggleVote = function(id, evt) {
     if (evt) evt.stopPropagation();
     const item = database.find(r => r.id === id);
@@ -1151,21 +1359,60 @@ h1.hero-title {
       item.userVoted = true;
     }
 
-    // Re-render domain board with updated ordering
-    renderDomainBoard(selectedDomain);
+    if (activeMainView === "active") {
+      renderDomainBoard(selectedDomain);
+    } else {
+      renderSolvedProblems();
+    }
   };
 
-  // Update Badge Counts on domain buttons
-  function refreshBadges() {
+  // REQUIRED: Authorized Officer Action — Mark as Solved
+  window.markAsSolved = function(id, evt) {
+    if (evt) evt.stopPropagation();
+    if (!isAuthorizedOfficer) {
+      window.openAuthModal();
+      return;
+    }
+
+    const item = database.find(r => r.id === id);
+    if (!item) return;
+
+    if (confirm(`Authorize Resolution: Mark issue "${item.title}" as SOLVED and transfer to official archive?`)) {
+      item.status = "solved";
+      item.solvedAt = "Completed Just Now";
+      item.solvedBy = "Authorized Vercel Inspector (#VERCEL-AUTH)";
+
+      refreshCounters();
+      renderDomainBoard(selectedDomain);
+      alert(`Ticket #${item.id} has been resolved and moved to the "Solved Problems" registry.`);
+    }
+  };
+
+  // Refresh counts across badges and nav
+  function refreshCounters() {
     const counts = { roads: 0, water: 0, electric: 0, sanitation: 0, safety: 0 };
-    database.forEach(item => { if (counts[item.domain] !== undefined) counts[item.domain]++; });
+    let solvedTotal = 0;
+
+    database.forEach(item => {
+      if (item.status === "active") {
+        if (counts[item.domain] !== undefined) counts[item.domain]++;
+      } else if (item.status === "solved") {
+        solvedTotal++;
+      }
+    });
+
     for (const key in counts) {
       const b = document.getElementById(`badge-${key}`);
-      if (b) b.textContent = `${counts[key]} Reports`;
+      if (b) b.textContent = counts[key];
     }
+
+    document.getElementById("navSolvedCount").textContent = solvedTotal;
+    document.getElementById("mainSolvedCount").textContent = solvedTotal;
+    const bannerTotal = document.getElementById("solvedBannerTotal");
+    if (bannerTotal) bannerTotal.textContent = solvedTotal;
   }
 
-  // Render Domain Board
+  // Render Active Domain Board
   function renderDomainBoard(domainKey) {
     selectedDomain = domainKey;
     const meta = DOMAIN_SCHEMA[domainKey];
@@ -1178,8 +1425,8 @@ h1.hero-title {
     iconFrame.style.color = meta.color;
     iconFrame.innerHTML = `<svg class="icon-svg" style="width:24px;height:24px"><use href="#${meta.icon}"/></svg>`;
 
-    // Filter problems and sort by current active mode (Priority or Votes)
-    const domainReports = database.filter(r => r.domain === domainKey);
+    // Filter ONLY ACTIVE issues in this domain
+    const domainReports = database.filter(r => r.domain === domainKey && r.status === "active");
     const sortedReports = getSortedReports(domainReports);
     const container = document.getElementById("complaintsListContainer");
 
@@ -1187,8 +1434,8 @@ h1.hero-title {
       container.innerHTML = `
         <div style="background:#f8fafc;padding:48px;text-align:center;border-radius:14px;border:1px dashed #cbd5e1">
           <svg class="icon-svg" style="width:40px;height:40px;color:#94a3b8;margin-bottom:8px"><use href="#icon-check"/></svg>
-          <h4 style="color:var(--brand-navy);font-size:17px">Zero Pending Issues in this Domain</h4>
-          <p style="font-size:13px;color:#64748b">No open complaints currently logged for this municipal sector.</p>
+          <h4 style="color:var(--brand-navy);font-size:17px">Zero Open Issues in this Domain</h4>
+          <p style="font-size:13px;color:#64748b">All complaints for this department are resolved or none reported yet.</p>
         </div>`;
       return;
     }
@@ -1198,11 +1445,29 @@ h1.hero-title {
       if (item.priority === "High") jewelClass = "jewel-high";
       else if (item.priority === "Medium") jewelClass = "jewel-med";
 
+      // REQUIRED: "Mark as Solved" button only visible / functional for Authorized User
+      let solvedControlHtml = "";
+      if (isAuthorizedOfficer) {
+        solvedControlHtml = `
+          <button class="btn-mark-solved font-display" onclick="window.markAsSolved('${item.id}', event)">
+            <svg class="icon-svg" style="width:14px;height:14px"><use href="#icon-check"/></svg>
+            Mark as Solved
+          </button>
+        `;
+      } else {
+        solvedControlHtml = `
+          <span class="restricted-lock-note" title="Resolution restricted to authorized officer chosen by Vercel publisher">
+            <svg class="icon-svg" style="width:12px;height:12px"><use href="#icon-lock"/></svg>
+            Officer Signoff Req.
+          </span>
+        `;
+      }
+
       return `
         <article class="problem-card">
           <!-- VOTE SECTION -->
           <div class="vote-box">
-            <button class="vote-btn ${item.userVoted ? 'voted' : ''}" onclick="window.toggleVote('${item.id}', event)" title="Upvote this complaint to raise priority">
+            <button class="vote-btn ${item.userVoted ? 'voted' : ''}" onclick="window.toggleVote('${item.id}', event)" title="Upvote to raise urgency">
               <svg class="icon-svg" style="width:16px;height:16px"><use href="#icon-arrow-up"/></svg>
             </button>
             <div class="vote-count-number">${item.votes}</div>
@@ -1210,36 +1475,120 @@ h1.hero-title {
           </div>
 
           <!-- PHOTO THUMBNAIL -->
-          <div class="photo-thumb-container" onclick="window.inspectEvidence('${item.id}')" title="Click to enlarge photographic proof">
-            <img src="${item.photo}" alt="Photographic evidence for ${item.title}">
+          <div class="photo-thumb-container" onclick="window.inspectEvidence('${item.id}')" title="Click to view full photographic proof">
+            <img src="${item.photo}" alt="Photographic proof">
             <div class="photo-badge-overlay">
-              <svg class="icon-svg" style="width:12px;height:12px"><use href="#icon-camera"/></svg> Evidence
+              <svg class="icon-svg" style="width:12px;height:12px"><use href="#icon-camera"/></svg> Proof
             </div>
           </div>
 
-          <!-- REPORT DETAILS -->
+          <!-- REPORT DETAILS & GEOGRAPHICAL SYMBOL -->
           <div class="card-center-col">
             <h4 class="card-problem-title">${item.title}</h4>
-            <div class="card-loc-meta">
-              <span><svg class="icon-svg" style="width:13px;height:13px;color:#6366f1"><use href="#icon-pin"/></svg> ${item.location}</span>
-              <span>• Logged ${item.time}</span>
-              <span>• By ${item.reporter}</span>
+            
+            <!-- REQUIRED: Location with distinctive symbol near place name -->
+            <div>
+              <span class="location-indicator-badge">
+                <span class="geo-symbol-ring"></span>
+                <svg class="icon-svg" style="width:12px;height:12px"><use href="#icon-pin"/></svg>
+                ${item.location} &nbsp;•&nbsp; <strong>[${item.zoneSymbol}]</strong>
+              </span>
             </div>
+
             <p class="card-desc-body">${item.problem}</p>
-            <div class="dept-pill font-display">
-              <svg class="icon-svg" style="width:12px;height:12px"><use href="#icon-safety"/></svg>
-              ${item.dept}
+            <div class="card-loc-meta">
+              <span>Logged ${item.time}</span>
+              <span>• Complainant: ${item.reporter}</span>
+              <span class="dept-pill"><svg class="icon-svg" style="width:11px;height:11px"><use href="#icon-safety"/></svg> ${item.dept}</span>
             </div>
           </div>
 
-          <!-- PRIORITY & ACTION -->
+          <!-- PRIORITY & AUTHORIZED OFFICER ACTIONS -->
           <div class="card-aside-col">
             <div class="jewel-priority ${jewelClass}">
               <svg class="icon-svg" style="width:12px;height:12px"><use href="${item.priority === 'High' ? '#icon-alert' : '#icon-check'}"/></svg>
               ${item.priority} Priority
             </div>
+            
             <button class="btn-inspect-ev font-display" onclick="window.inspectEvidence('${item.id}')">
               <svg class="icon-svg"><use href="#icon-camera"/></svg> Photo Proof
+            </button>
+
+            <!-- SOLVED BUTTON FOR AUTHORIZED USER -->
+            ${solvedControlHtml}
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  // REQUIRED: Render Solved Problems Registry Page
+  function renderSolvedProblems() {
+    const solvedReports = database.filter(r => r.status === "solved");
+    const container = document.getElementById("solvedListContainer");
+
+    if (solvedReports.length === 0) {
+      container.innerHTML = `
+        <div style="background:#f8fafc;padding:48px;text-align:center;border-radius:14px;border:1px dashed #cbd5e1">
+          <svg class="icon-svg" style="width:40px;height:40px;color:#94a3b8;margin-bottom:8px"><use href="#icon-check"/></svg>
+          <h4 style="color:var(--brand-navy);font-size:17px">No Solved Complaints Yet</h4>
+          <p style="font-size:13px;color:#64748b">Once authorized inspectors mark issues as fixed, they will be archived here.</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = solvedReports.map(item => {
+      return `
+        <article class="problem-card" style="border-left: 4px solid var(--c-solved);background:#fafdfb">
+          <!-- VOTE SUMMARY -->
+          <div class="vote-box" style="background:#ecfdf5;border-color:#a7f3d0">
+            <div style="color:var(--c-solved)">
+              <svg class="icon-svg" style="width:20px;height:20px"><use href="#icon-check"/></svg>
+            </div>
+            <div class="vote-count-number" style="color:var(--c-solved)">${item.votes}</div>
+            <div class="vote-subtext" style="color:#059669">Verified</div>
+          </div>
+
+          <!-- PHOTO THUMBNAIL -->
+          <div class="photo-thumb-container" onclick="window.inspectEvidence('${item.id}')" title="Click to view resolution evidence">
+            <img src="${item.photo}" alt="Resolution proof">
+            <div class="photo-badge-overlay" style="background:rgba(5,150,105,0.9)">
+              <svg class="icon-svg" style="width:12px;height:12px"><use href="#icon-check"/></svg> Solved
+            </div>
+          </div>
+
+          <!-- DETAILS -->
+          <div class="card-center-col">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <h4 class="card-problem-title" style="text-decoration:line-through;color:#64748b">${item.title}</h4>
+              <span class="jewel-priority jewel-solved font-display">
+                <svg class="icon-svg" style="width:12px;height:12px"><use href="#icon-check"/></svg>
+                Resolved
+              </span>
+            </div>
+
+            <div>
+              <span class="location-indicator-badge" style="background:#f0fdf4;color:#166534;border-color:#bbf7d0">
+                <span class="geo-symbol-ring" style="background:#16a34a"></span>
+                <svg class="icon-svg" style="width:12px;height:12px"><use href="#icon-pin"/></svg>
+                ${item.location} &nbsp;•&nbsp; [${item.zoneSymbol}]
+              </span>
+            </div>
+
+            <p class="card-desc-body">${item.problem}</p>
+            <div class="card-loc-meta" style="color:#059669;font-weight:600">
+              <span>✓ ${item.solvedAt}</span>
+              <span>• Certified by: ${item.solvedBy}</span>
+            </div>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="card-aside-col">
+            <span class="dept-pill" style="background:#ecfdf5;color:#065f46;border-color:#a7f3d0">
+              ${DOMAIN_SCHEMA[item.domain].name}
+            </span>
+            <button class="btn-inspect-ev font-display" onclick="window.inspectEvidence('${item.id}')">
+              <svg class="icon-svg"><use href="#icon-camera"/></svg> View Proof
             </button>
           </div>
         </article>
@@ -1247,7 +1596,7 @@ h1.hero-title {
     }).join("");
   }
 
-  // Setup Domain Tab Switchers
+  // Domain Tab Click Handling
   document.querySelectorAll(".dom-btn").forEach(btn => {
     btn.addEventListener("click", function() {
       document.querySelectorAll(".dom-btn").forEach(b => {
@@ -1259,6 +1608,45 @@ h1.hero-title {
       renderDomainBoard(this.dataset.domain);
     });
   });
+
+  // VERCEL / OFFICER AUTHENTICATION MANAGEMENT
+  window.openAuthModal = function() {
+    document.getElementById("authModal").classList.add("open");
+    document.getElementById("btnOfficerLogout").style.display = isAuthorizedOfficer ? "block" : "none";
+  };
+  window.closeAuthModal = function() {
+    document.getElementById("authModal").classList.remove("open");
+  };
+
+  window.handleOfficerLogin = function(e) {
+    e.preventDefault();
+    const passkey = document.getElementById("officerPasskey").value.trim();
+
+    // Verification against Vercel Deployer Key
+    if (passkey === "VERCEL-ADMIN-2026" || passkey.toLowerCase() === "officer" || passkey.toLowerCase() === "admin") {
+      isAuthorizedOfficer = true;
+      document.getElementById("officerAuthBtn").classList.add("authorized");
+      document.getElementById("officerStatusText").textContent = "Inspector (Vercel Auth ✓)";
+      document.getElementById("heroRoleSnapshot").textContent = "Authorized Inspector (Full Access)";
+      document.getElementById("heroRoleSnapshot").style.color = "#0284c7";
+      window.closeAuthModal();
+      renderDomainBoard(selectedDomain);
+      alert("Verification Successful! You are logged in as an Authorized Inspector chosen by the Vercel site publisher. You can now mark any problem as SOLVED.");
+    } else {
+      alert("Invalid Officer Key. Please use the Vercel deployer passkey: VERCEL-ADMIN-2026");
+    }
+  };
+
+  window.handleOfficerLogout = function() {
+    isAuthorizedOfficer = false;
+    document.getElementById("officerAuthBtn").classList.remove("authorized");
+    document.getElementById("officerStatusText").textContent = "Officer Login";
+    document.getElementById("heroRoleSnapshot").textContent = "Citizen Mode (Read Only)";
+    document.getElementById("heroRoleSnapshot").style.color = "var(--brand-navy)";
+    window.closeAuthModal();
+    renderDomainBoard(selectedDomain);
+    alert("Logged out. Inspector privileges revoked.");
+  };
 
   // Photo Upload & Preview
   const fileInput = document.getElementById("f-photo");
@@ -1302,7 +1690,7 @@ h1.hero-title {
     document.getElementById("modalHeading").textContent = `Incident File #${target.id} — Photographic Evidence`;
     document.getElementById("modalProblemTitle").textContent = target.title;
     document.getElementById("modalProblemBody").textContent = target.problem;
-    document.getElementById("modalLocationText").textContent = target.location;
+    document.getElementById("modalLocationText").textContent = `${target.location} [${target.zoneSymbol}]`;
     document.getElementById("modalComplainantText").textContent = target.reporter;
     document.getElementById("modalDeptText").textContent = target.dept;
     document.getElementById("modalVotesBadge").textContent = `${target.votes} Citizen Upvotes`;
@@ -1311,8 +1699,13 @@ h1.hero-title {
     dBadge.textContent = DOMAIN_SCHEMA[target.domain].name;
 
     const pBadge = document.getElementById("modalPriorityBadge");
-    pBadge.textContent = `${target.priority} Priority (Risk: ${target.score}/100)`;
-    pBadge.className = `jewel-priority ${target.priority === 'High' ? 'jewel-high' : target.priority === 'Medium' ? 'jewel-med' : 'jewel-low'}`;
+    if (target.status === "solved") {
+      pBadge.textContent = "Status: Resolved";
+      pBadge.className = "jewel-priority jewel-solved";
+    } else {
+      pBadge.textContent = `${target.priority} Priority (Risk: ${target.score}/100)`;
+      pBadge.className = `jewel-priority ${target.priority === 'High' ? 'jewel-high' : target.priority === 'Medium' ? 'jewel-med' : 'jewel-low'}`;
+    }
 
     modal.classList.add("open");
   };
@@ -1346,7 +1739,7 @@ h1.hero-title {
     formError.style.display = "none";
     submitBtn.disabled = true;
 
-    // AI Classification
+    // AI Classification with Geo-Zone indicator
     const analysis = classifyComplaint(problem, location);
     lastAssignedDomain = analysis.domain;
 
@@ -1356,27 +1749,29 @@ h1.hero-title {
       title: problem.length > 55 ? problem.substring(0, 52) + "..." : problem,
       problem: problem,
       location: location,
+      zoneSymbol: analysis.zoneSymbol,
       reporter: name,
       priority: analysis.priority,
       score: analysis.score,
-      votes: 1, // initial vote from submitter
+      votes: 1,
       userVoted: true,
       time: "Just now",
       dept: DOMAIN_SCHEMA[analysis.domain].dept,
+      status: "active",
+      solvedAt: null,
+      solvedBy: null,
       photo: encodedPhotoData
     };
 
-    // Prepend to database
     database.unshift(newIssue);
-    refreshBadges();
+    refreshCounters();
 
-    // Populate Success Card
+    // Summary Card
     submissionSummary.innerHTML = `
       <div><strong>Classified Domain:</strong> <span style="color:${DOMAIN_SCHEMA[analysis.domain].color};font-weight:700">${DOMAIN_SCHEMA[analysis.domain].name}</span></div>
-      <div><strong>Assessed Priority:</strong> <span style="font-weight:800;color:${analysis.priority === 'High' ? 'var(--p-high)' : analysis.priority === 'Medium' ? 'var(--p-med)' : 'var(--p-low)'}">${analysis.priority} Priority (Risk Score: ${analysis.score}/100)</span></div>
-      <div><strong>Initial Community Votes:</strong> 1 Upvote</div>
-      <div><strong>Responsible Division:</strong> ${DOMAIN_SCHEMA[analysis.domain].dept}</div>
-      <div><strong>Photographic Proof:</strong> Encoded &amp; Linked to Dispatch Ticket</div>
+      <div><strong>Priority &amp; Risk:</strong> <span style="font-weight:800;color:${analysis.priority === 'High' ? 'var(--p-high)' : analysis.priority === 'Medium' ? 'var(--p-med)' : 'var(--p-low)'}">${analysis.priority} Priority (${analysis.score}/100)</span></div>
+      <div><strong>Assigned Geo-Symbol:</strong> 📍 ${analysis.zoneSymbol}</div>
+      <div><strong>Resolution Protocol:</strong> Pending Authorized Municipal Officer Dispatch</div>
     `;
 
     form.style.display = "none";
@@ -1385,6 +1780,7 @@ h1.hero-title {
   });
 
   btnViewInBoard.addEventListener("click", function() {
+    window.switchMainView("active");
     const targetTab = document.querySelector(`.dom-btn[data-domain="${lastAssignedDomain}"]`);
     if (targetTab) targetTab.click();
     document.getElementById("domains").scrollIntoView({ behavior: "smooth" });
@@ -1398,9 +1794,11 @@ h1.hero-title {
   });
 
   // Initial Boot
-  refreshBadges();
+  refreshCounters();
   renderDomainBoard("roads");
 })();
 </script>
 </body>
 </html>
+
+          
